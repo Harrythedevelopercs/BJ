@@ -1,0 +1,444 @@
+{
+  "restaurant": {
+    "name": "BJ Buffet",
+    "legalName": "BJ Buffet Conyers",
+    "tagline": "Authentic Southern Home Cooking & Country Buffet",
+    "cuisine": [
+      "Southern",
+      "Soul Food",
+      "American Comfort Food",
+      "Buffet"
+    ],
+    "description": "BJ Buffet in Conyers, GA serves up comforting, country home-style cooking and traditional Southern soul food. Featuring daily all-you-can-eat buffet spreads with golden fried chicken, slow-simmered beef tips, creamy mac and cheese, collard greens, candied yams, fresh salad bar, and homemade peach cobbler, plus build-your-own to-go plates and delivery.",
+    "priceRange": "$$",
+    "rating": {
+      "google": 4.1,
+      "reviewCount": 365,
+      "deliveryAverage": 3.8
+    },
+    "contact": {
+      "phonePrimary": "(678) 806-5590",
+      "phoneSecondary": "(678) 806-5591",
+      "phoneRaw": "6788065590",
+      "facebook": "https://www.facebook.com/p/Bj-buffet-Conyers-100032893822791/",
+      "googleMapsUrl": "https://www.google.com/maps/place/BJ+Buffet+Conyers/@33.6408013,-84.018615,17z/data=!3m1!4b1!4m6!3m5!1s0x88f44bbe22293435:0xb1fc7c9485de7ae3!8m2!3d33.6408013!4d-84.0160401!16s%2Fg%2F11fsktj64h",
+      "googlePlaceId": "0x88f44bbe22293435:0xb1fc7c9485de7ae3"
+    },
+    "location": {
+      "streetAddress": "1823 Hwy 138 SE, Suite 3000",
+      "addressLocality": "Conyers",
+      "addressRegion": "GA",
+      "postalCode": "30013",
+      "addressCountry": "US",
+      "landmark": "Located on Hwy 138 behind the Truist Bank Building, right next to the bowling alley",
+      "coordinates": {
+        "latitude": 33.6408013,
+        "longitude": -84.0160401
+      }
+    },
+    "hours": [
+      { "day": "Monday", "open": "11:15", "close": "20:30", "formatted": "11:15 AM – 8:30 PM", "special": "Rib Tips Monday" },
+      { "day": "Tuesday", "open": "11:15", "close": "20:30", "formatted": "11:15 AM – 8:30 PM", "special": "BBQ Pork Ribs" },
+      { "day": "Wednesday", "open": "11:15", "close": "20:30", "formatted": "11:15 AM – 8:30 PM", "special": "Country Fried Pork Chops & Baked Chicken" },
+      { "day": "Thursday", "open": "11:15", "close": "20:30", "formatted": "11:15 AM – 8:30 PM", "special": "Beef Tips over Rice & Meatloaf" },
+      { "day": "Friday", "open": "11:15", "close": "20:30", "formatted": "11:15 AM – 8:30 PM", "special": "Crispy Southern Golden Fish Feast" },
+      { "day": "Saturday", "open": "11:15", "close": "20:30", "formatted": "11:15 AM – 8:30 PM", "special": "Weekend Family Comfort Buffet" },
+      { "day": "Sunday", "open": "11:00", "close": "20:30", "formatted": "11:00 AM – 8:30 PM", "special": "Sunday Church Soul Food Special" }
+    ],
+    "services": [
+      "All-You-Can-Eat Buffet (Dine-in)",
+      "Build Your Own To-Go Plate (Takeout)",
+      "Delivery via UberEats, DoorDash, Postmates & Grubhub",
+      "Family & Church Group Catering",
+      "Wheelchair Accessible Seating & Parking",
+      "Credit & Debit Cards Accepted"
+    ]
+  },
+  "buffetPricing": [
+    {
+      "tier": "Adult All-You-Can-Eat Buffet",
+      "price": "$13.99",
+      "description": "Unlimited trips to hot meat stations, carving line, southern vegetables, scratch sides, cold salad bar & dessert bar."
+    },
+    {
+      "tier": "Senior Buffet (Ages 60+)",
+      "price": "$12.99",
+      "description": "Full buffet access with our special discount for seniors."
+    },
+    {
+      "tier": "Kids Buffet (Ages 4-10)",
+      "price": "$7.99",
+      "description": "Kid-friendly comfort favorites including fried chicken, mac & cheese, and desserts."
+    },
+    {
+      "tier": "Toddlers (Ages 3 & Under)",
+      "price": "FREE",
+      "description": "With purchase of an adult buffet."
+    },
+    {
+      "tier": "Buffet Drink Add-on",
+      "price": "$1.99",
+      "description": "Unlimited refills on Southern Sweet Tea, Unsweet Tea, Lemonade, or Fountain Sodas."
+    }
+  ],
+  "toGoPlates": [
+    {
+      "name": "1 Meat & 2 Vegetables Plate",
+      "price": 10.99,
+      "description": "Your choice of 1 signature meat and 2 hearty Southern sides, served with fresh warm cornbread or dinner roll.",
+      "popular": true
+    },
+    {
+      "name": "2 Meats & 3 Vegetables Feast Plate",
+      "price": 14.99,
+      "description": "Generous portions with your choice of 2 daily meats and 3 country sides, with cornbread or roll.",
+      "popular": false
+    },
+    {
+      "name": "Southern Country Veggie Plate (4 Sides)",
+      "price": 8.99,
+      "description": "Pick any 4 hot vegetable sides or cold salad bar sides with homemade cornbread.",
+      "popular": false
+    },
+    {
+      "name": "Signature Mac & Cheese Meat Bowl",
+      "price": 8.99,
+      "description": "A deep bowl of rich, creamy baked mac & cheese piled high with your choice of daily meat topping.",
+      "popular": true
+    }
+  ],
+  "menuCategories": [
+    {
+      "id": "meats",
+      "title": "Signature Meats & Entrées",
+      "items": [
+        {
+          "name": "Southern Crispy Fried Chicken",
+          "description": "Golden crispy, flaky seasoned coating with moist, tender chicken inside. The signature customer favorite.",
+          "portion": "Buffet / 3 Pcs A La Carte",
+          "price": "$6.99",
+          "tags": ["Customer Favorite", "Top Rated", "Signature"],
+          "image": "fried-chicken"
+        },
+        {
+          "name": "Slow-Baked Herb Chicken",
+          "description": "Oven-roasted chicken legs and thighs seasoned with savory herbs and baked till fall-off-the-bone juicy.",
+          "portion": "Buffet / 4 Pcs A La Carte",
+          "price": "$6.99",
+          "tags": ["Comfort Classic"],
+          "image": "baked-chicken"
+        },
+        {
+          "name": "Savory Beef Tips over White Rice",
+          "description": "Tender chunks of beef slow-simmered in rich country brown gravy served over a bed of fluffy white rice.",
+          "portion": "Buffet / Entrée Plate",
+          "price": "Plate Inclusion",
+          "tags": ["Chef Special", "Hearty"],
+          "image": "beef-tips"
+        },
+        {
+          "name": "Homemade Southern Meatloaf",
+          "description": "Traditional grandma-style ground beef meatloaf baked with savory onions and glazed with sweet tangy tomato topping.",
+          "portion": "Buffet / Entrée Portion",
+          "price": "Plate Inclusion",
+          "tags": ["Homestyle"],
+          "image": "meatloaf"
+        },
+        {
+          "name": "Hickory Smoked Rib Tips & Pork Ribs",
+          "description": "Tender pork rib tips slow-smoked and glazed with rich, tangy barbecue sauce. A Monday & Tuesday specialty.",
+          "portion": "Buffet / Daily Special",
+          "price": "Plate Inclusion",
+          "tags": ["Daily Special", "Smoky BBQ"],
+          "image": "ribs"
+        },
+        {
+          "name": "Country Golden Fried Fish Fillets",
+          "description": "Crispy cornmeal-crusted fish fillets seasoned with classic Southern seafood spices, fried golden brown.",
+          "portion": "Buffet / Friday Special",
+          "price": "Plate Inclusion",
+          "tags": ["Seafood Special"],
+          "image": "fried-fish"
+        },
+        {
+          "name": "Pan-Fried Country Pork Chops",
+          "description": "Lightly breaded and pan-seared juicy pork chops with crisp savory edges.",
+          "portion": "Buffet / Daily Special",
+          "price": "Plate Inclusion",
+          "tags": ["Traditional Soul Food"],
+          "image": "pork-chops"
+        }
+      ]
+    },
+    {
+      "id": "sides",
+      "title": "Country Vegetables & Sides",
+      "items": [
+        {
+          "name": "Creamy Baked Macaroni & Cheese",
+          "description": "Thick, ultra-cheesy, baked Southern macaroni and cheese with a golden bubbly cheddar crust.",
+          "portion": "Buffet / Side ($3.49 a la carte)",
+          "price": "$3.49",
+          "tags": ["Must Try", "#1 Rated Side"],
+          "image": "mac-and-cheese"
+        },
+        {
+          "name": "Slow-Simmered Collard Greens",
+          "description": "Fresh collard greens slow-cooked in seasoned potlikker until tender and flavorful.",
+          "portion": "Buffet / Side",
+          "price": "$1.99 - $3.49",
+          "tags": ["Southern Staple"],
+          "image": "collard-greens"
+        },
+        {
+          "name": "Sweet Candied Yams",
+          "description": "Tender sweet potato slices slow-simmered in rich brown sugar, butter, and warm spices.",
+          "portion": "Buffet / Side",
+          "price": "$1.99 - $3.49",
+          "tags": ["Sweet & Tender", "Crowd Favorite"],
+          "image": "candied-yams"
+        },
+        {
+          "name": "Country Steamed Cabbage",
+          "description": "Tender shredded green cabbage sauteed with sweet onions, black pepper, and butter.",
+          "portion": "Buffet / Side",
+          "price": "$1.99",
+          "tags": ["Vegetarian Friendly"],
+          "image": "cabbage"
+        },
+        {
+          "name": "Seasoned Green Beans",
+          "description": "Tender cut green beans slow-simmered with country seasonings and savory onions.",
+          "portion": "Buffet / Side",
+          "price": "$1.99",
+          "tags": ["Classic"],
+          "image": "green-beans"
+        },
+        {
+          "name": "Fluffy Mashed Potatoes & Brown Gravy",
+          "description": "Real buttered mashed potatoes topped with hot, rich savory brown gravy.",
+          "portion": "Buffet / Side",
+          "price": "$1.99",
+          "tags": ["Homestyle Comfort"],
+          "image": "mashed-potatoes"
+        },
+        {
+          "name": "Southern Country Butter Beans",
+          "description": "Plump, tender butter beans simmered low and slow in a flavorful broth.",
+          "portion": "Buffet / Side",
+          "price": "$1.99",
+          "tags": ["Southern Classic"],
+          "image": "butter-beans"
+        },
+        {
+          "name": "Sweet Golden Butter Corn",
+          "description": "Sweet whole kernel corn tossed in creamy butter with a dash of cracked black pepper.",
+          "portion": "Buffet / 8 oz cup",
+          "price": "$3.49",
+          "tags": ["Sweet Side"],
+          "image": "corn"
+        },
+        {
+          "name": "Fresh Warm Cornbread & Yeast Rolls",
+          "description": "Freshly baked square golden cornbread and fluffy soft dinner yeast rolls with butter.",
+          "portion": "Included with Plates",
+          "price": "$0.99",
+          "tags": ["Freshly Baked"],
+          "image": "cornbread"
+        }
+      ]
+    },
+    {
+      "id": "salad-bar",
+      "title": "Fresh Salad Bar & Deli Salads",
+      "items": [
+        {
+          "name": "Garden Tossed Fresh Salad",
+          "description": "Crisp iceberg, romaine, sweet cherry tomatoes, sliced cucumbers, and house buttermilk ranch dressing.",
+          "portion": "Bowl",
+          "price": "$4.99",
+          "tags": ["Fresh & Crisp"],
+          "image": "garden-salad"
+        },
+        {
+          "name": "Creamy Southern Macaroni Salad",
+          "description": "Chilled elbow pasta tossed with diced sweet relish, red peppers, and rich creamy mayonnaise dressing.",
+          "portion": "8 oz Deli Cup",
+          "price": "$3.49",
+          "tags": ["Cold Deli Side"],
+          "image": "mac-salad"
+        },
+        {
+          "name": "Homestyle Chilled Tuna Salad",
+          "description": "Light, seasoned tuna salad mixed with crunchy celery, relish, and mayonnaise.",
+          "portion": "8 oz Deli Cup",
+          "price": "$3.49",
+          "tags": ["Protein Rich"],
+          "image": "tuna-salad"
+        },
+        {
+          "name": "Tangy Cucumber & Sweet Onion Salad",
+          "description": "Thinly sliced cucumbers and sweet onions marinated in a zesty sweet-tangy vinegar dressing.",
+          "portion": "8 oz Deli Cup",
+          "price": "$3.49",
+          "tags": ["Cool & Refreshing"],
+          "image": "cucumber-salad"
+        },
+        {
+          "name": "Sweet Marshmallow Ambrosia Salad",
+          "description": "Classic Southern sweet treat with mini marshmallows, pineapple chunks, mandarin oranges, and sweet cream.",
+          "portion": "8 oz Deli Cup",
+          "price": "$3.49",
+          "tags": ["Sweet Salad"],
+          "image": "marshmallow-salad"
+        },
+        {
+          "name": "Traditional Paprika Deviled Eggs",
+          "description": "Five freshly prepared hard-boiled egg halves with sweet-tangy seasoned yolk filling and Hungarian paprika.",
+          "portion": "5 pieces",
+          "price": "$3.49",
+          "tags": ["Deli Favorite", "High Protein"],
+          "image": "deviled-eggs"
+        }
+      ]
+    },
+    {
+      "id": "desserts",
+      "title": "Homemade Southern Desserts",
+      "items": [
+        {
+          "name": "Warm Georgia Peach Cobbler",
+          "description": "Sweet, spiced Georgia peaches baked beneath a buttery, flaky golden crust. Served warm.",
+          "portion": "Buffet / 8 oz Bowl",
+          "price": "$3.49",
+          "tags": ["House Signature", "Must Try"],
+          "image": "peach-cobbler"
+        },
+        {
+          "name": "Southern Pecan Pie",
+          "description": "Decadent caramel-brown sugar custard packed with roasted Georgia pecans in a flaky crust.",
+          "portion": "Buffet / 2 Slices",
+          "price": "$3.49",
+          "tags": ["Southern Classic"],
+          "image": "pecan-pie"
+        },
+        {
+          "name": "Classic Homestyle Banana Pudding",
+          "description": "Layers of velvety vanilla pudding, fresh ripe bananas, and crisp vanilla wafers topped with whipped topping.",
+          "portion": "Buffet / 8 oz Cup",
+          "price": "$3.49",
+          "tags": ["Favorite"],
+          "image": "banana-pudding"
+        },
+        {
+          "name": "Southern Glazed Lemon Pound Cake",
+          "description": "Dense, moist buttermilk pound cake drizzled with a sweet citrus lemon glaze.",
+          "portion": "3 Slices",
+          "price": "$3.49",
+          "tags": ["Freshly Baked"],
+          "image": "lemon-cake"
+        }
+      ]
+    },
+    {
+      "id": "drinks",
+      "title": "Beverages",
+      "items": [
+        {
+          "name": "Authentic Southern Sweet Iced Tea",
+          "description": "Freshly brewed every morning, served ice cold with lemon upon request.",
+          "portion": "Free refills dine-in / To-Go Cup",
+          "price": "$1.49 - $1.99",
+          "tags": ["Southern Legend"],
+          "image": "sweet-tea"
+        },
+        {
+          "name": "Crisp Unsweetened Iced Tea",
+          "description": "Fresh brewed pure black tea served over crisp ice.",
+          "portion": "Free refills dine-in / To-Go Cup",
+          "price": "$1.49 - $1.99",
+          "tags": ["Zero Sugar"],
+          "image": "unsweet-tea"
+        },
+        {
+          "name": "Country Style Lemonade",
+          "description": "Sweet, refreshing, citrusy lemonade served ice-cold.",
+          "portion": "Cup",
+          "price": "$1.99",
+          "tags": ["Refreshing"],
+          "image": "lemonade"
+        },
+        {
+          "name": "Coke Zero & Fountain Sodas",
+          "description": "Coca-Cola, Diet Coke, Sprite, Dr Pepper, Fanta Orange.",
+          "portion": "12 oz Can / Fountain",
+          "price": "$1.49 - $1.99",
+          "tags": ["Chilled"],
+          "image": "sodas"
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Marcus Thornton",
+      "badge": "Local Guide · 48 reviews",
+      "rating": 5,
+      "date": "3 months ago",
+      "source": "Google Maps",
+      "text": "If you're looking for real home-cooked comfort food that tastes like Sunday dinner at your grandmother's house, BJ Buffet is the real deal here in Conyers. The fried chicken was piping hot and seasoned to perfection with crisp, flaky skin. The mac and cheese was rich and creamy, not watery like at other buffets. You cannot beat the value for an all-you-can-eat spread. Clean tables and great hospitality!",
+      "favoriteDishes": ["Fried Chicken", "Creamy Mac & Cheese", "Peach Cobbler"]
+    },
+    {
+      "id": 2,
+      "author": "Brenda Washington",
+      "badge": "Local Guide · 122 reviews",
+      "rating": 5,
+      "date": "1 month ago",
+      "source": "Google Maps",
+      "text": "We brought our family group of 8 after Sunday service. Everyone found multiple things they thoroughly enjoyed. The candied yams were tender with that perfect caramel glaze, the beef tips over rice were packed with savory gravy, and the hot peach cobbler made my day. Attentive staff kept our sweet teas refilled without having to ask.",
+      "favoriteDishes": ["Candied Yams", "Beef Tips over Rice", "Sweet Tea", "Peach Cobbler"]
+    },
+    {
+      "id": 3,
+      "author": "David Kowalski",
+      "badge": "Local Guide · 31 reviews",
+      "rating": 4,
+      "date": "2 months ago",
+      "source": "Google Maps",
+      "text": "A nice hidden gem tucked behind the Truist Bank building off Highway 138. Much more peaceful and clean than massive commercial chain buffets. The rib tips on Monday are fantastic with good smoky BBQ sauce, and the deviled eggs on the salad bar are always fresh. Great lunch stop!",
+      "favoriteDishes": ["Rib Tips", "Deviled Eggs", "Cornbread"]
+    },
+    {
+      "id": 4,
+      "author": "Patricia Reynolds",
+      "badge": "Verified Diner",
+      "rating": 5,
+      "date": "4 months ago",
+      "source": "Google Maps",
+      "text": "I frequently order the to-go 1-meat 2-veggie plate for lunch during my work breaks. The baked chicken and collard greens are consistently good and healthy portions. Sweet ladies at the front counter always greet you with a genuine smile. Conyers staple!",
+      "favoriteDishes": ["1 Meat 2 Veggie Plate", "Slow-Baked Chicken", "Collard Greens"]
+    },
+    {
+      "id": 5,
+      "author": "Anthony Bennett",
+      "badge": "Local Guide · 84 reviews",
+      "rating": 5,
+      "date": "5 months ago",
+      "source": "Google Maps",
+      "text": "Great old-fashioned soul food buffet. Deviled eggs and cucumber salad on the cold bar were crispy and fresh. The meatloaf tasted 100% homemade, hearty and seasoned just right. Will definitely bring my coworkers back for our Friday team lunches.",
+      "favoriteDishes": ["Homemade Meatloaf", "Cucumber Salad", "Baked Mac & Cheese"]
+    },
+    {
+      "id": 6,
+      "author": "Keisha Mitchell",
+      "badge": "Verified Diner",
+      "rating": 4,
+      "date": "6 months ago",
+      "source": "Google Maps",
+      "text": "Honest country cooking and sweet hospitality. The fried chicken alone is worth the trip—make sure to grab a piece when they bring out the hot fresh tray! Affordable price for an all-you-can-eat meal in this economy.",
+      "favoriteDishes": ["Fried Chicken", "Sweet Corn", "Banana Pudding"]
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap');
+
+:root {
+  --color-brand-red: #cb2738;
+  --color-brand-white: #ffffff;
+  --color-brand-dark: #111111;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: #cb2738;
+  color: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-jost), 'Jost', sans-serif;
+  background-color: #ffffff;
+  color: #171717;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   CONTAINER — 1440px max with auto margin
+   ========================================= */
+.container-main {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-main {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-main {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+}
+
+/* =========================================
+   TYPOGRAPHY
+   ========================================= */
+.font-heading {
+  font-family: var(--font-bebas), 'Bebas Neue', sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.font-body {
+  font-family: var(--font-jost), 'Jost', sans-serif;
+}
+
+/* =========================================
+   HERO SLIDER
+   ========================================= */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-slide.active .hero-content-anim {
+  animation: heroContentIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.25s;
+  opacity: 0;
+}
+
+@keyframes heroContentIn {
+  0%   { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-slide.active .hero-badge-anim {
+  animation: heroBadgeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+@keyframes heroBadgeIn {
+  0%   { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.hero-slide.active .hero-img-anim {
+  animation: heroImgIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.15s;
+  opacity: 0;
+}
+
+@keyframes heroImgIn {
+  0%   { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Ken Burns effect on bg image */
+.hero-slide.active .hero-bg-img {
+  animation: kenBurns 10s ease-out forwards;
+}
+
+@keyframes kenBurns {
+  0%   { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* =========================================
+   MARQUEE BAND
+   ========================================= */
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* =========================================
+   DUAL DIRECTION REVIEWS CAROUSEL
+   ========================================= */
+.marquee-row-left {
+  display: flex;
+  width: max-content;
+  animation: marqueeLeft 42s linear infinite;
+  will-change: transform;
+}
+
+.marquee-row-right {
+  display: flex;
+  width: max-content;
+  animation: marqueeRight 42s linear infinite;
+  will-change: transform;
+}
+
+.marquee-row-left:hover,
+.marquee-row-right:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* =========================================
+   SMOOTH SCROLL ANCHOR OFFSET
+   ========================================= */
+[id] {
+  scroll-margin-top: 80px;
+}
+
+/* =========================================
+   CARD HOVER LIFT
+   ========================================= */
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(203, 39, 56, 0.12);
+}
+
+/* =========================================
+   CUSTOM SCROLLBAR
+   ========================================= */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #cb2738; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #a81c2b; }
+
+/* =========================================
+   UTILITY: GRADIENT TEXT
+   ========================================= */
+.text-gradient-red {
+  background: linear-gradient(135deg, #cb2738, #e63946);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =========================================
+   NAV LINK UNDERLINE ANIMATION
+   ========================================= */
+.nav-link-anim {
+  position: relative;
+}
+
+.nav-link-anim::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #cb2738;
+  transition: width 0.25s ease;
+}
+
+.nav-link-anim:hover::after,
+.nav-link-anim.active::after {
+  width: 100%;
+}
