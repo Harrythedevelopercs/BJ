@@ -371,71 +371,71 @@ export default function FoodOrderSection() {
                 ))}
               </div>
 
-              {/* Items List */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Items List - 2 Columns on Mobile & Desktop */}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {filteredItems.map((item) => {
                   const qty = cart[item.id] || 0;
                   return (
                     <div
                       key={item.id}
-                      className={`p-5 rounded-2xl border-2 transition-all flex flex-col justify-between gap-4 bg-white ${
+                      className={`p-3.5 sm:p-5 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 sm:gap-4 bg-white ${
                         qty > 0
                           ? 'border-brand-red shadow-md shadow-brand-red/10'
                           : 'border-gray-100 hover:border-gray-300'
                       }`}
                     >
                       <div>
-                        <div className="flex items-start justify-between gap-2 mb-1">
-                          <h4 className="font-heading text-xl uppercase text-black leading-tight">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
+                          <h4 className="font-heading text-base sm:text-xl uppercase text-black leading-tight">
                             {item.name}
                           </h4>
-                          <span className="font-heading text-xl text-brand-red shrink-0">
+                          <span className="font-heading text-lg sm:text-xl text-brand-red shrink-0 font-bold">
                             ${item.price.toFixed(2)}
                           </span>
                         </div>
                         {item.popular && (
-                          <span className="inline-block bg-brand-red/10 text-brand-red text-[10px] font-semibold px-2 py-0.5 rounded uppercase tracking-wider mb-2">
+                          <span className="inline-block bg-brand-red/10 text-brand-red text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 rounded uppercase tracking-wider mb-1.5">
                             POPULAR CHOICE
                           </span>
                         )}
-                        <p className="text-gray-500 font-body text-xs leading-relaxed">
+                        <p className="text-gray-500 font-body text-[11px] sm:text-xs leading-relaxed line-clamp-2 sm:line-clamp-none">
                           {item.description}
                         </p>
                       </div>
 
-                      <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
+                      <div className="pt-2.5 sm:pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2">
                         {qty > 0 ? (
-                          <div className="flex items-center gap-3 bg-gray-50 rounded-full px-3 py-1 border border-gray-200">
+                          <div className="flex items-center gap-1.5 sm:gap-3 bg-gray-50 rounded-full px-2 sm:px-3 py-1 border border-gray-200">
                             <button
                               onClick={() => removeFromCart(item.id)}
-                              className="w-7 h-7 rounded-full bg-white hover:bg-gray-200 text-gray-800 flex items-center justify-center transition-colors shadow-sm"
+                              className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white hover:bg-gray-200 text-gray-800 flex items-center justify-center transition-colors shadow-sm"
                               aria-label="Decrease quantity"
                             >
-                              <Minus size={14} />
+                              <Minus size={12} />
                             </button>
-                            <span className="font-heading text-lg font-bold text-black min-w-[20px] text-center">
+                            <span className="font-heading text-base sm:text-lg font-bold text-black min-w-[16px] sm:min-w-[20px] text-center">
                               {qty}
                             </span>
                             <button
                               onClick={() => addToCart(item.id)}
-                              className="w-7 h-7 rounded-full bg-brand-red hover:bg-brand-red-dark text-white flex items-center justify-center transition-colors shadow-sm"
+                              className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand-red hover:bg-brand-red-dark text-white flex items-center justify-center transition-colors shadow-sm"
                               aria-label="Increase quantity"
                             >
-                              <Plus size={14} />
+                              <Plus size={12} />
                             </button>
                           </div>
                         ) : (
                           <button
                             onClick={() => addToCart(item.id)}
-                            className="inline-flex items-center gap-1.5 bg-gray-900 hover:bg-brand-red text-white px-4 py-2 rounded-full font-heading text-xs tracking-wider uppercase transition-colors"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-1 bg-gray-900 hover:bg-brand-red text-white px-2.5 sm:px-4 py-2 rounded-full font-heading text-[11px] sm:text-xs tracking-wider uppercase transition-colors"
                           >
-                            <Plus size={14} />
-                            ADD TO ORDER
+                            <Plus size={13} />
+                            <span>ADD TO ORDER</span>
                           </button>
                         )}
 
                         {qty > 0 && (
-                          <span className="text-xs font-semibold text-gray-600 font-body">
+                          <span className="text-[11px] sm:text-xs font-semibold text-gray-600 font-body">
                             ${(item.price * qty).toFixed(2)}
                           </span>
                         )}

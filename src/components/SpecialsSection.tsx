@@ -54,6 +54,8 @@ export default function SpecialsSection() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05, duration: 0.5 }}
                 className={`relative rounded-2xl p-5 flex flex-col gap-3 transition-all card-hover ${
+                  i === 6 ? 'col-span-2 sm:col-span-1' : ''
+                } ${
                   isToday
                     ? 'bg-brand-red text-white shadow-2xl shadow-brand-red/50 ring-4 ring-white ring-offset-2 ring-offset-black scale-105 z-10'
                     : 'bg-zinc-900/90 text-white hover:bg-zinc-800 border border-white/10'

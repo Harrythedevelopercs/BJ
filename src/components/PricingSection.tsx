@@ -6,7 +6,7 @@ import { Check, Star } from 'lucide-react';
 
 export default function PricingSection() {
   return (
-    <section id="pricing" className="py-24 lg:py-32 bg-zinc-50 text-gray-900 border-t border-gray-100">
+    <section id="pricing" className="py-16 sm:py-24 lg:py-32 bg-zinc-50 text-gray-900 border-t border-gray-100">
       <div className="container-main">
         {/* Header */}
         <motion.div
@@ -14,7 +14,7 @@ export default function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <span className="inline-block text-brand-red text-sm font-bold tracking-widest uppercase mb-3">
             ALL YOU CAN EAT
@@ -28,7 +28,7 @@ export default function PricingSection() {
         </motion.div>
 
         {/* Buffet Tier Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mb-16 sm:mb-20">
           {buffetPricing.map((tier, i) => (
             <motion.div
               key={tier.tier}
@@ -36,9 +36,9 @@ export default function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
-              className={`relative rounded-3xl p-7 flex flex-col gap-5 card-hover ${
+              className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between gap-5 card-hover w-full ${
                 tier.popular
-                  ? 'bg-brand-red text-white shadow-2xl shadow-brand-red/40 ring-4 ring-black scale-105 z-10'
+                  ? 'bg-brand-red text-white shadow-2xl shadow-brand-red/40 ring-4 ring-black lg:scale-105 z-10'
                   : 'bg-white text-gray-900 shadow-sm border-2 border-gray-200 hover:border-brand-red'
               }`}
             >

@@ -47,20 +47,20 @@ export default function AboutSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             </div>
 
-            {/* Floating rating badge in red/white - Centered at bottom of photo card */}
+            {/* Floating rating badge in red/white - Perfectly centered on mobile & desktop */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-2xl px-6 py-3.5 border-2 border-brand-red flex items-center justify-center gap-3.5 whitespace-nowrap z-20"
+              className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-[280px] sm:max-w-max sm:w-auto bg-white rounded-2xl shadow-xl px-3.5 sm:px-6 py-2.5 sm:py-3.5 border-2 border-brand-red flex items-center justify-center gap-2.5 sm:gap-3.5 z-20"
             >
-              <div className="w-11 h-11 rounded-xl bg-brand-red text-white flex items-center justify-center font-heading text-2xl shadow-md shadow-brand-red/30 shrink-0">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-red text-white flex items-center justify-center font-heading text-xl sm:text-2xl shadow-md shadow-brand-red/30 shrink-0">
                 4.1★
               </div>
               <div className="flex flex-col items-start justify-center">
-                <p className="font-heading text-base sm:text-lg uppercase text-black leading-none tracking-wide">Google Rating</p>
-                <p className="text-xs text-gray-500 font-semibold mt-1 leading-none">365+ Verified Reviews</p>
+                <p className="font-heading text-sm sm:text-lg uppercase text-black leading-none tracking-wide">Google Rating</p>
+                <p className="text-[11px] sm:text-xs text-gray-500 font-semibold mt-1 leading-none whitespace-nowrap">365+ Verified Reviews</p>
               </div>
             </motion.div>
 
@@ -154,17 +154,17 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-6"
+          className="mt-16 sm:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"
         >
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="bg-white rounded-2xl p-8 text-center border-2 border-gray-100 hover:border-brand-red transition-all shadow-sm hover:shadow-xl hover:shadow-brand-red/10 card-hover group"
+              className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center border-2 border-gray-100 hover:border-brand-red transition-all shadow-sm hover:shadow-xl hover:shadow-brand-red/10 card-hover group"
             >
-              <p className="font-heading text-5xl sm:text-6xl text-brand-red group-hover:scale-105 transition-transform">
+              <p className="font-heading text-3xl sm:text-4xl lg:text-6xl text-brand-red group-hover:scale-105 transition-transform leading-none whitespace-nowrap text-center">
                 {stat.value}
               </p>
-              <p className="text-gray-600 text-xs sm:text-sm uppercase tracking-wider mt-2 font-heading">
+              <p className="text-gray-600 text-[11px] sm:text-xs lg:text-sm uppercase tracking-wider mt-2 font-heading text-center leading-tight">
                 {stat.label}
               </p>
             </div>
