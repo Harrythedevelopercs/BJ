@@ -35,7 +35,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative"
+            className="lg:col-span-5 relative max-w-[360px] sm:max-w-md lg:max-w-none mx-auto w-full mb-8 sm:mb-10 lg:mb-0"
           >
             {/* Main image with clean border */}
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-square">
@@ -53,14 +53,18 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-[280px] sm:max-w-max sm:w-auto bg-white rounded-2xl shadow-xl px-3.5 sm:px-6 py-2.5 sm:py-3.5 border-2 border-brand-red flex items-center justify-center gap-2.5 sm:gap-3.5 z-20"
+              className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl px-4 sm:px-5 py-2.5 sm:py-3 border-2 border-brand-red flex items-center justify-center gap-3 z-20 whitespace-nowrap"
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-red text-white flex items-center justify-center font-heading text-xl sm:text-2xl shadow-md shadow-brand-red/30 shrink-0">
+              <div className="w-12 h-9 sm:w-12 sm:h-10 rounded-xl bg-brand-red text-white flex items-center justify-center font-heading text-xl sm:text-2xl shadow-md shadow-brand-red/30 shrink-0">
                 4.1★
               </div>
-              <div className="flex flex-col items-start justify-center">
-                <p className="font-heading text-sm sm:text-lg uppercase text-black leading-none tracking-wide">Google Rating</p>
-                <p className="text-[11px] sm:text-xs text-gray-500 font-semibold mt-1 leading-none whitespace-nowrap">365+ Verified Reviews</p>
+              <div className="flex flex-col items-start justify-center text-left">
+                <p className="font-heading text-sm sm:text-base uppercase text-black leading-none tracking-wide">
+                  GOOGLE RATING
+                </p>
+                <p className="text-[11px] sm:text-xs text-gray-500 font-body font-medium mt-1 leading-none">
+                  365+ Verified Reviews
+                </p>
               </div>
             </motion.div>
 
