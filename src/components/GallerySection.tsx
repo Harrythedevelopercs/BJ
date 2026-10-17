@@ -3,19 +3,28 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { galleryImages, galleryCategories, type GalleryImageItem } from '@/lib/data';
-import { Facebook, X, ZoomIn, Eye } from 'lucide-react';
+import { Facebook, X, Eye, Plus, ChevronUp } from 'lucide-react';
 
 export default function GallerySection() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryImageItem | null>(null);
+  const [visibleCount, setVisibleCount] = useState<number>(6); // 2 columns x 3 rows on mobile
 
   const filteredImages =
     activeCategory === 'all'
       ? galleryImages
       : galleryImages.filter((img) => img.category === activeCategory);
 
+  const displayedImages = filteredImages.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredImages.length;
+
+  const handleCategoryChange = (catId: string) => {
+    setActiveCategory(catId);
+    setVisibleCount(6); // Reset to 6 images (3 rows of 2 cols) on category change
+  };
+
   return (
-    <section id="gallery" className="py-24 lg:py-32 bg-zinc-50 text-gray-900 border-t border-gray-100">
+    <section id="gallery" className="py-20 lg:py-32 bg-zinc-50 text-gray-900 border-t border-gray-100">
       <div className="container-main">
         {/* Header */}
         <motion.div
@@ -23,7 +32,7 @@ export default function GallerySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <div className="inline-flex items-center gap-1.5 text-brand-red text-sm font-bold tracking-widest uppercase mb-3">
             <span>FRESH SPREAD EVERYDAY</span>
@@ -37,7 +46,7 @@ export default function GallerySection() {
         </motion.div>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-12">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 sm:mb-12">
           {galleryCategories.map((cat) => {
             const count =
               cat.id === 'all'
@@ -48,9 +57,9 @@ export default function GallerySection() {
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => handleCategoryChange(cat.id)}
                 type="button"
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-heading text-base sm:text-lg uppercase tracking-wider transition-all duration-200 border-2 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full font-heading text-sm sm:text-lg uppercase tracking-wider transition-all duration-200 border-2 ${
                   isActive
                     ? 'bg-brand-red border-brand-red text-white shadow-lg shadow-brand-red/25 scale-105'
                     : 'bg-white border-gray-200 text-gray-700 hover:border-brand-red hover:text-brand-red shadow-sm'
@@ -58,7 +67,7 @@ export default function GallerySection() {
               >
                 <span>{cat.label}</span>
                 <span
-                  className={`text-xs px-2 py-0.5 rounded-full font-mono font-bold ${
+                  className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-mono font-bold ${
                     isActive ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-600'
                   }`}
                 >
@@ -69,10 +78,10 @@ export default function GallerySection() {
           })}
         </div>
 
-        {/* Photo Grid with AnimatePresence */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        {/* Photo Grid - 2 columns on mobile, 3 on tablet, 4 on desktop */}
+        <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           <AnimatePresence>
-            {filteredImages.map((img) => (
+            {displayedImages.map((img) => (
               <motion.div
                 key={img.id}
                 layout
@@ -91,24 +100,24 @@ export default function GallerySection() {
                 />
 
                 {/* Tag pill */}
-                <div className="absolute top-3 left-3 z-10">
-                  <span className="bg-black/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md uppercase tracking-wider font-body shadow-sm">
+                <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
+                  <span className="bg-black/80 backdrop-blur-sm text-white text-[9px] sm:text-[11px] font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md uppercase tracking-wider font-body shadow-sm">
                     {img.tag}
                   </span>
                 </div>
 
                 {/* Hover overlay with #cb2738 */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-red/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                  <div className="translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="text-white/80 font-heading text-xs uppercase tracking-widest block mb-1">
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-red/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3 sm:p-5">
+                  <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <span className="text-white/80 font-heading text-[10px] sm:text-xs uppercase tracking-widest block mb-0.5">
                       {img.categoryLabel}
                     </span>
-                    <p className="text-white font-heading text-2xl uppercase tracking-wider leading-tight mb-2">
+                    <p className="text-white font-heading text-base sm:text-2xl uppercase tracking-wider leading-tight mb-1 sm:mb-2 line-clamp-2">
                       {img.title}
                     </p>
-                    <div className="flex items-center gap-1.5 text-white/90 text-xs font-body font-semibold">
-                      <Eye size={14} />
-                      <span>Click to view photo</span>
+                    <div className="flex items-center gap-1 text-white/90 text-[10px] sm:text-xs font-body font-semibold">
+                      <Eye size={13} />
+                      <span>View photo</span>
                     </div>
                   </div>
                 </div>
@@ -117,13 +126,45 @@ export default function GallerySection() {
           </AnimatePresence>
         </motion.div>
 
+        {/* Load More Button */}
+        {hasMore ? (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mt-10 sm:mt-12"
+          >
+            <button
+              type="button"
+              onClick={() => setVisibleCount((prev) => prev + 6)}
+              className="inline-flex items-center justify-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white px-8 py-3.5 rounded-full font-heading text-lg sm:text-xl uppercase tracking-wider shadow-lg shadow-brand-red/30 transition-all hover:scale-105 active:scale-95"
+            >
+              <Plus size={18} />
+              <span>LOAD MORE IMAGES</span>
+              <span className="text-xs font-mono font-bold bg-white/20 px-2 py-0.5 rounded-full ml-1">
+                +{Math.min(6, filteredImages.length - visibleCount)}
+              </span>
+            </button>
+          </motion.div>
+        ) : filteredImages.length > 6 ? (
+          <div className="text-center mt-8">
+            <button
+              type="button"
+              onClick={() => setVisibleCount(6)}
+              className="inline-flex items-center justify-center gap-1.5 text-gray-500 hover:text-brand-red font-heading text-sm uppercase tracking-wider transition-colors"
+            >
+              <span>SHOW LESS</span>
+              <ChevronUp size={16} />
+            </button>
+          </div>
+        ) : null}
+
         {/* Facebook Link */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-center mt-14"
+          className="text-center mt-12 sm:mt-14"
         >
           <a
             href="https://www.facebook.com/p/Bj-buffet-Conyers-100032893822791/"
