@@ -48,25 +48,27 @@ export default function AboutSection() {
             </div>
 
             {/* Floating rating badge in red/white - Perfectly centered on mobile & desktop */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl px-4 sm:px-5 py-2.5 sm:py-3 border-2 border-brand-red flex items-center justify-center gap-3 z-20 whitespace-nowrap"
-            >
-              <div className="w-12 h-9 sm:w-12 sm:h-10 rounded-xl bg-brand-red text-white flex items-center justify-center font-heading text-xl sm:text-2xl shadow-md shadow-brand-red/30 shrink-0">
-                4.1★
-              </div>
-              <div className="flex flex-col items-start justify-center text-left">
-                <p className="font-heading text-sm sm:text-base uppercase text-black leading-none tracking-wide">
-                  GOOGLE RATING
-                </p>
-                <p className="text-[11px] sm:text-xs text-gray-500 font-body font-medium mt-1 leading-none">
-                  365+ Verified Reviews
-                </p>
-              </div>
-            </motion.div>
+            <div className="absolute -bottom-6 inset-x-0 flex justify-center z-20 pointer-events-none">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="pointer-events-auto bg-white rounded-2xl shadow-xl px-4 sm:px-5 py-2.5 sm:py-3 border-2 border-brand-red flex items-center justify-center gap-3 whitespace-nowrap"
+              >
+                <div className="w-12 h-9 sm:w-12 sm:h-10 rounded-xl bg-brand-red text-white flex items-center justify-center font-heading text-xl sm:text-2xl shadow-md shadow-brand-red/30 shrink-0">
+                  4.1★
+                </div>
+                <div className="flex flex-col items-start justify-center text-left">
+                  <p className="font-heading text-sm sm:text-base uppercase text-black leading-none tracking-wide">
+                    GOOGLE RATING
+                  </p>
+                  <p className="text-[11px] sm:text-xs text-gray-500 font-body font-medium mt-1 leading-none">
+                    365+ Verified Reviews
+                  </p>
+                </div>
+              </motion.div>
+            </div>
 
             {/* Clean, Simple Official Brand Logo Badge */}
             <motion.div
