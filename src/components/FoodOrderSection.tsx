@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Plus, Minus, Trash2, CheckCircle2, Clock, MapPin, Phone, ArrowRight, UtensilsCrossed } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, CheckCircle2, Clock, MapPin, Phone, ArrowRight, UtensilsCrossed, X } from 'lucide-react';
 import { restaurant } from '@/lib/data';
 
 interface OrderItem {
@@ -199,6 +199,30 @@ export default function FoodOrderSection() {
   const [notes, setNotes] = useState('');
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
+  const [isMobileCartOpen, setIsMobileCartOpen] = useState(false);
+
+  // Lock body scroll when mobile cart modal is open
+  useEffect(() => {
+    if (isMobileCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileCartOpen]);
+
+  // Close mobile cart on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileCartOpen) {
+        setIsMobileCartOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMobileCartOpen]);
 
   const filteredItems =
     selectedCat === 'all'
@@ -245,6 +269,15 @@ export default function FoodOrderSection() {
     const generatedOrderNumber = `BJ-${Math.floor(1000 + Math.random() * 9000)}`;
     setOrderNumber(generatedOrderNumber);
     setOrderConfirmed(true);
+    setIsMobileCartOpen(false);
+
+    // Scroll smoothly to order confirmation screen
+    setTimeout(() => {
+      const menuEl = document.getElementById('menu');
+      if (menuEl) {
+        menuEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const resetOrder = () => {
@@ -254,7 +287,188 @@ export default function FoodOrderSection() {
     setNotes('');
     setOrderConfirmed(false);
     setOrderNumber('');
+    setIsMobileCartOpen(false);
   };
+
+  const renderOrderCart = (isModal: boolean = false) => (
+    <>
+      {/* Items in Cart */}
+      {totalItemsCount === 0 ? (
+        <div className="py-8 text-center text-white/50 flex flex-col items-center">
+          <UtensilsCrossed size={36} className="text-white/20 mb-3" />
+          <p className="font-heading text-lg uppercase text-white/70">Your order is empty</p>
+          <p className="text-xs text-white/50 max-w-[220px] mt-1 font-body">
+            Choose your favorite plates, sides, and desserts from the menu to get started.
+          </p>
+          {isModal && (
+            <button
+              type="button"
+              onClick={() => setIsMobileCartOpen(false)}
+              className="mt-4 px-6 py-2 rounded-full bg-brand-red hover:bg-brand-red-dark text-white font-heading text-xs uppercase tracking-wider transition-colors cursor-pointer"
+            >
+              BROWSE MENU
+            </button>
+          )}
+        </div>
+      ) : (
+        <div
+          className={`flex flex-col gap-3 ${
+            isModal ? 'max-h-[190px]' : 'max-h-[220px]'
+          } overflow-y-auto pr-1 mb-4 divide-y divide-white/5`}
+        >
+          {Object.entries(cart).map(([id, qty]) => {
+            const item = MENU_ITEMS.find((m) => m.id === id);
+            if (!item) return null;
+            return (
+              <div
+                key={id}
+                className="pt-2.5 first:pt-0 flex items-center justify-between gap-3 text-sm"
+              >
+                <div className="flex-1 min-w-0">
+                  <p className="font-heading text-base uppercase text-white truncate leading-tight">
+                    {item.name}
+                  </p>
+                  <p className="text-xs text-white/50 font-body">
+                    {qty} × ${item.price.toFixed(2)}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center gap-1 bg-zinc-800 rounded-full px-1.5 py-0.5 border border-white/10">
+                    <button
+                      type="button"
+                      onClick={() => removeFromCart(id)}
+                      className="w-5 h-5 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus size={11} />
+                    </button>
+                    <span className="font-heading text-sm text-white min-w-[16px] text-center font-bold">
+                      {qty}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => addToCart(id)}
+                      className="w-5 h-5 rounded-full bg-brand-red hover:bg-brand-red-dark text-white flex items-center justify-center transition-colors cursor-pointer"
+                      aria-label="Increase quantity"
+                    >
+                      <Plus size={11} />
+                    </button>
+                  </div>
+                  <span className="font-heading text-base text-white min-w-[45px] text-right">
+                    ${(item.price * qty).toFixed(2)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => deleteItem(id)}
+                    className="text-white/40 hover:text-brand-red transition-colors p-1 cursor-pointer"
+                    aria-label={`Remove ${item.name}`}
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Price Calculation */}
+      <div className="pt-3 border-t border-white/10 flex flex-col gap-1.5 text-xs font-body text-white/70 mb-5">
+        <div className="flex justify-between">
+          <span>Subtotal:</span>
+          <span className="text-white font-mono">${subtotal.toFixed(2)}</span>
+        </div>
+        <div className="flex justify-between">
+          <span>Estimated Tax (7% GA):</span>
+          <span className="text-white font-mono">${tax.toFixed(2)}</span>
+        </div>
+        <div className="flex justify-between text-base font-heading text-white pt-2 border-t border-white/10 uppercase tracking-wider">
+          <span>Total Due At Counter:</span>
+          <span className="text-brand-red text-2xl font-mono">${grandTotal.toFixed(2)}</span>
+        </div>
+      </div>
+
+      {/* Customer Pickup Form */}
+      <form onSubmit={handleSubmitOrder} className="flex flex-col gap-3">
+        <div>
+          <label className="block text-[11px] font-heading uppercase tracking-wider text-white/70 mb-1">
+            Your Full Name *
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="e.g. Marcus Thornton"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-heading uppercase tracking-wider text-white/70 mb-1">
+            Phone Number (for pickup notification) *
+          </label>
+          <input
+            type="tel"
+            required
+            placeholder="e.g. (678) 555-0199"
+            value={customerPhone}
+            onChange={(e) => setCustomerPhone(e.target.value)}
+            className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-heading uppercase tracking-wider text-white/70 mb-1">
+            Pickup Time
+          </label>
+          <select
+            value={pickupTime}
+            onChange={(e) => setPickupTime(e.target.value)}
+            className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red transition-colors"
+          >
+            <option value="ASAP (approx. 20 to 25 mins)">ASAP (approx. 20 to 25 mins)</option>
+            <option value="In 30 Minutes">In 30 Minutes</option>
+            <option value="In 45 Minutes">In 45 Minutes</option>
+            <option value="In 1 Hour">In 1 Hour</option>
+            <option value="Today at 5:00 PM">Today at 5:00 PM</option>
+            <option value="Today at 6:00 PM">Today at 6:00 PM</option>
+            <option value="Today at 7:00 PM">Today at 7:00 PM</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-heading uppercase tracking-wider text-white/70 mb-1">
+            Special Instructions (Optional)
+          </label>
+          <input
+            type="text"
+            placeholder="e.g. Extra brown gravy on rice, sweet tea"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={totalItemsCount === 0}
+          className={`w-full mt-3 py-3.5 rounded-full font-heading text-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg ${
+            totalItemsCount > 0
+              ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-brand-red/40 hover:scale-[1.02] cursor-pointer'
+              : 'bg-zinc-800 text-white/40 cursor-not-allowed border border-white/5'
+          }`}
+        >
+          <span>PLACE PICKUP ORDER</span>
+          <ArrowRight size={18} />
+        </button>
+
+        <p className="text-[11px] text-center text-white/50 font-body mt-1">
+          Pay at the counter when you pick up. Cash & all major cards accepted.
+        </p>
+      </form>
+    </>
+  );
 
   return (
     <section id="menu" className="py-20 lg:py-28 bg-white text-gray-900 border-t border-gray-100">
@@ -461,9 +675,8 @@ export default function FoodOrderSection() {
 
             </div>
 
-            {/* RIGHT 4-5 COLS: Order Summary & Checkout Form */}
-            <div className="lg:col-span-5 xl:col-span-4 bg-zinc-900 text-white rounded-3xl p-6 sm:p-7 shadow-xl border border-zinc-800 sticky top-24">
-              
+            {/* RIGHT 4-5 COLS: Order Summary & Checkout Form (Desktop only - hidden on mobile) */}
+            <div className="hidden lg:block lg:col-span-5 xl:col-span-4 bg-zinc-900 text-white rounded-3xl p-6 sm:p-7 shadow-xl border border-zinc-800 sticky top-24">
               <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
                 <div className="flex items-center gap-2">
                   <ShoppingBag size={20} className="text-brand-red" />
@@ -474,148 +687,90 @@ export default function FoodOrderSection() {
                 </span>
               </div>
 
-              {/* Items in Cart */}
-              {totalItemsCount === 0 ? (
-                <div className="py-10 text-center text-white/50 flex flex-col items-center">
-                  <UtensilsCrossed size={36} className="text-white/20 mb-3" />
-                  <p className="font-heading text-lg uppercase text-white/70">Your order is empty</p>
-                  <p className="text-xs text-white/50 max-w-[220px] mt-1 font-body">
-                    Choose your favorite plates, sides, and desserts from the menu on the left to get started.
-                  </p>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-3 max-h-[220px] overflow-y-auto pr-1 mb-4 divide-y divide-white/5">
-                  {Object.entries(cart).map(([id, qty]) => {
-                    const item = MENU_ITEMS.find((m) => m.id === id);
-                    if (!item) return null;
-                    return (
-                      <div key={id} className="pt-2.5 first:pt-0 flex items-center justify-between gap-3 text-sm">
-                        <div className="flex-1 min-w-0">
-                          <p className="font-heading text-base uppercase text-white truncate leading-tight">
-                            {item.name}
-                          </p>
-                          <p className="text-xs text-white/50 font-body">
-                            {qty} × ${item.price.toFixed(2)}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2 shrink-0">
-                          <span className="font-heading text-base text-white">
-                            ${(item.price * qty).toFixed(2)}
-                          </span>
-                          <button
-                            onClick={() => deleteItem(id)}
-                            className="text-white/40 hover:text-brand-red transition-colors p-1"
-                            aria-label={`Remove ${item.name}`}
-                          >
-                            <Trash2 size={14} />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* Price Calculation */}
-              <div className="pt-3 border-t border-white/10 flex flex-col gap-1.5 text-xs font-body text-white/70 mb-5">
-                <div className="flex justify-between">
-                  <span>Subtotal:</span>
-                  <span className="text-white font-mono">${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Estimated Tax (7% GA):</span>
-                  <span className="text-white font-mono">${tax.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-base font-heading text-white pt-2 border-t border-white/10 uppercase tracking-wider">
-                  <span>Total Due At Counter:</span>
-                  <span className="text-brand-red text-2xl font-mono">${grandTotal.toFixed(2)}</span>
-                </div>
-              </div>
-
-              {/* Customer Pickup Form */}
-              <form onSubmit={handleSubmitOrder} className="flex flex-col gap-3">
-                <div>
-                  <label className="block text-[11px] font-heading uppercase tracking-wider text-white/70 mb-1">
-                    Your Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Marcus Thornton"
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-heading uppercase tracking-wider text-white/70 mb-1">
-                    Phone Number (for pickup notification) *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="e.g. (678) 555-0199"
-                    value={customerPhone}
-                    onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-heading uppercase tracking-wider text-white/70 mb-1">
-                    Pickup Time
-                  </label>
-                  <select
-                    value={pickupTime}
-                    onChange={(e) => setPickupTime(e.target.value)}
-                    className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red transition-colors"
-                  >
-                    <option value="ASAP (approx. 20 to 25 mins)">ASAP (approx. 20 to 25 mins)</option>
-                    <option value="In 30 Minutes">In 30 Minutes</option>
-                    <option value="In 45 Minutes">In 45 Minutes</option>
-                    <option value="In 1 Hour">In 1 Hour</option>
-                    <option value="Today at 5:00 PM">Today at 5:00 PM</option>
-                    <option value="Today at 6:00 PM">Today at 6:00 PM</option>
-                    <option value="Today at 7:00 PM">Today at 7:00 PM</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-heading uppercase tracking-wider text-white/70 mb-1">
-                    Special Instructions (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Extra brown gravy on rice, sweet tea"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={totalItemsCount === 0}
-                  className={`w-full mt-3 py-3.5 rounded-full font-heading text-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg ${
-                    totalItemsCount > 0
-                      ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-brand-red/40 hover:scale-[1.02] cursor-pointer'
-                      : 'bg-zinc-800 text-white/40 cursor-not-allowed border border-white/5'
-                  }`}
-                >
-                  <span>PLACE PICKUP ORDER</span>
-                  <ArrowRight size={18} />
-                </button>
-
-                <p className="text-[11px] text-center text-white/50 font-body mt-1">
-                  Pay at the counter when you pick up. Cash & all major cards accepted.
-                </p>
-              </form>
-
+              {renderOrderCart(false)}
             </div>
 
           </div>
         )}
+
+        {/* Floating Mobile Cart Action Button (Bottom Right) */}
+        <AnimatePresence>
+          {totalItemsCount > 0 && !isMobileCartOpen && !orderConfirmed && (
+            <motion.button
+              key="mobile-cart-circle-btn"
+              initial={{ scale: 0, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsMobileCartOpen(true)}
+              className="lg:hidden fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-brand-red text-white shadow-2xl shadow-brand-red/60 border-2 border-white flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
+              aria-label={`View your order with ${totalItemsCount} items`}
+            >
+              <ShoppingBag className="w-6 h-6 text-white" />
+              <span className="absolute -top-1 -right-1 bg-white text-brand-red font-heading text-xs font-bold w-5 h-5 rounded-full border border-brand-red flex items-center justify-center shadow-md leading-none">
+                {totalItemsCount}
+              </span>
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* Mobile Order Popup Modal */}
+        <AnimatePresence>
+          {isMobileCartOpen && (
+            <div className="lg:hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center">
+              {/* Dark Blurred Backdrop */}
+              <motion.div
+                key="mobile-cart-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setIsMobileCartOpen(false)}
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              />
+
+              {/* Popup / Bottom Sheet Card */}
+              <motion.div
+                key="mobile-cart-modal"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                className="relative w-full sm:max-w-md max-h-[88vh] bg-zinc-900 text-white rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl border border-zinc-700 flex flex-col z-10 overflow-hidden"
+              >
+                {/* Pull handle indicator on mobile */}
+                <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-3 sm:hidden" />
+
+                {/* Modal Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-white/10 shrink-0 mb-3">
+                  <div className="flex items-center gap-2">
+                    <ShoppingBag size={20} className="text-brand-red" />
+                    <h3 className="font-heading text-2xl uppercase tracking-wider text-white">YOUR ORDER</h3>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="bg-brand-red text-white text-xs font-heading px-2.5 py-1 rounded-full">
+                      {totalItemsCount} {totalItemsCount === 1 ? 'ITEM' : 'ITEMS'}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setIsMobileCartOpen(false)}
+                      className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 text-white flex items-center justify-center transition-colors cursor-pointer"
+                      aria-label="Close cart popup"
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Modal Scrollable Body */}
+                <div className="overflow-y-auto pr-1 flex flex-col overscroll-contain">
+                  {renderOrderCart(true)}
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
       </div>
     </section>
